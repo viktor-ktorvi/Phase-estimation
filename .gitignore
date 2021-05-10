@@ -2,6 +2,7 @@
 *.prj
 **.autosave
 **.slxc
+**.asv
 # Ignore resources folder
 resources/*
 **/slprj
