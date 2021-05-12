@@ -9,7 +9,7 @@ set(groot, 'defaultLegendInterpreter','latex');
 Fs = 2000; % Hz
 f = 50; % Hz
 A = 1000;
-DC = 5;
+DC = 1;
 epsilon = 10;
 w = 2*pi*f;
 N = 512;
