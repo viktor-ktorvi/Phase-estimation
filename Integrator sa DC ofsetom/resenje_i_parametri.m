@@ -9,7 +9,7 @@ set(groot, 'defaultLegendInterpreter','latex');
 Fs = 2000; % Hz
 f = 50; % Hz
 A = 1000;
-DC = 10;
+DC = 1;
 epsilon = 10;
 w = 2*pi*f;
 %% Modifikovani integrator
@@ -98,10 +98,67 @@ t_trunc = t(start_index:end);
 y_integ_trunc = y_integ(start_index:end);
 y_mod_integ_DC_trunc = y_mod_integ_DC(start_index:end);
 
+m = mean(y_mod_integ_DC_trunc);
+
 figure;
-plot(t_trunc, y_integ_trunc, t_trunc, y_mod_integ_DC_trunc)
+plot(t_trunc, y_integ_trunc, t_trunc, y_mod_integ_DC_trunc - m)
 title("Integracija sa modifikacijom i skinutim DC/epsilon - poredjenje")
 xlabel("t [s]")
 ylabel("signal [unit]")
 
 legend("idealno", "sa modifikacijom")
+
+%% Različte učestanosti
+
+freqs = [10, 50, 100];
+
+num_plots = 3;
+figure;
+sgtitle("Poredjenje rezultata za razlicite ucestanosti")
+for i = 1:num_plots
+    x = A*cos(2*pi*freqs(i) * t);
+    
+    [y_ideal, ~] = obrada_signala(x, t, W);
+    [y, t_trunc] = obrada_signala(x, t, Gz);
+    
+    subplot(num_plots, 1, i)
+    plot(t_trunc, y_ideal, t_trunc, y)
+    title("f = " + freqs(i) + " Hz")
+    xlabel("t [s]")
+    ylabel("signal [unit]")
+    legend("idealno", "sa modifikacijom")
+
+end
+
+%% Prolaz kroz sve frekvencije
+freqs = 20:0.1:100;
+skg = zeros(length(freqs), 1);
+for i = 1:length(freqs)
+    x = A*cos(2*pi*freqs(i) * t);
+    
+    [y_ideal, ~] = obrada_signala(x, t, W);
+    [y, ~] = obrada_signala(x, t, Gz);
+    
+    skg(i) = sum((y - y_ideal).^2);
+end
+
+figure;
+plot(freqs, skg/length(y))
+xlabel("f [Hz]")
+ylabel("error")
+title("Srednje kvadratna greska")
+
+%% Funkcija
+
+function [out, t_trunc] = obrada_signala(x, t, Gz)
+    [y, ~] = lsim(Gz, x, t);
+    
+    start_index = round(length(y) * 0.30);
+    y_trunc = y(start_index:end);
+    t_trunc = t(start_index:end);
+    m = mean(y_trunc);
+    
+    out = y_trunc - m;
+    
+    
+end
