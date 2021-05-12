@@ -3,6 +3,8 @@ close all;
 clear variables;
 
 set(groot,'defaulttextinterpreter','latex');  
+set(groot, 'defaultAxesTickLabelInterpreter','latex');  
+set(groot, 'defaultLegendInterpreter','latex');
 %% Parametri
 Fs = 2000; % Hz
 f = 50; % Hz
@@ -21,6 +23,7 @@ zpk(Gz)
 Gz = filt(num, den ,1/Fs);
 zpk(Gz)
 
+%% Bodeovi dijagrami
 figure;
 margin(W)
 title("Idealni integrator")
@@ -79,12 +82,26 @@ title("Izlaz")
 
 %% Sa epsilon
 figure;
-plot(t, y_integ, t, y_mod_integ_DC - mean(y_mod_integ_DC))
+plot(t, y_integ, t, y_mod_integ_DC)
 title("Integracija sa modifikacijom - poredjenje")
 xlabel("t [s]")
 ylabel("signal [unit]")
+
+start_index = round(length(y_mod_integ_DC) * 0.30);
+xline(t(start_index), 'LineWidth', 2, 'Color', 'g')
+
+legend("idealno", "sa modifikacijom", "granica")
+
+%% Skidanje DC/epsilon vrednosti
+
+t_trunc = t(start_index:end);
+y_integ_trunc = y_integ(start_index:end);
+y_mod_integ_DC_trunc = y_mod_integ_DC(start_index:end);
+
+figure;
+plot(t_trunc, y_integ_trunc, t_trunc, y_mod_integ_DC_trunc)
+title("Integracija sa modifikacijom i skinutim DC/epsilon - poredjenje")
+xlabel("t [s]")
+ylabel("signal [unit]")
+
 legend("idealno", "sa modifikacijom")
-
-start_index = round(length(y_mod_integ_DC) * 0.25);
-
-
