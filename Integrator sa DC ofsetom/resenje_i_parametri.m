@@ -148,6 +148,7 @@ xlabel("f [Hz]")
 ylabel("error")
 title("Srednje kvadratna greska")
 
+close all;
 %% Funkcija
 
 function [out, t_trunc] = obrada_signala(x, t, Gz)
