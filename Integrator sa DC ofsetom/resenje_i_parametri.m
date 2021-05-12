@@ -12,6 +12,7 @@ A = 1000;
 DC = 1;
 epsilon = 10;
 w = 2*pi*f;
+N = 2048;
 %% Modifikovani integrator
 s = tf('s');
 G = 1/(s + epsilon);
