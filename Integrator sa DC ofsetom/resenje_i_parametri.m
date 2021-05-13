@@ -150,6 +150,18 @@ ylabel("error")
 title("Srednje kvadratna greska")
 
 close all;
+
+%% Realni podaci
+
+sim_duration = 10; % s
+time = 1/Fs * (0:(Fs * sim_duration));
+real_input = dlmread('real_input.txt');
+save('real_input.mat', 'real_input');
+
+real_input_tt = timetable(seconds(time)', real_input(1:length(time)));
+
+
+
 %% Simulacija
 sim_file_name = "model";
 open_system(sim_file_name)
