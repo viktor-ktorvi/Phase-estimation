@@ -8,7 +8,7 @@ set(groot, 'defaultLegendInterpreter','latex');
 %% Parametri
 Fs = 2000; % Hz
 f = 50; % Hz
-A = 1000;
+A = 6000;
 DC = 10;
 epsilon = 10;
 w = 2*pi*f;
@@ -43,7 +43,7 @@ gain_at_w = abs(freq_rest_at_w);
 %% Signal
 t = (0:2047) / Fs;
 
-x = A*cos(2*pi*f * t); %+ 2000 * cos(2*pi*f/2 *t + pi/3);
+x = A*cos(2*pi*f * t); 
 
 [y_mod_integ_DC, t] = lsim(Gz, x + DC, t);
 [y_integ_DC, t] = lsim(W, x + DC, t);
@@ -149,7 +149,7 @@ xlabel("f [Hz]")
 ylabel("error")
 title("Srednje kvadratna greska")
 
-close all;
+% close all;
 
 %% Realni podaci
 
