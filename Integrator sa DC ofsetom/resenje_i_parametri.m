@@ -9,7 +9,7 @@ set(groot, 'defaultLegendInterpreter','latex');
 Fs = 2000; % Hz
 f = 50; % Hz
 A = 1000;
-DC = 1;
+DC = 10;
 epsilon = 10;
 w = 2*pi*f;
 N = 512;
@@ -150,7 +150,28 @@ ylabel("error")
 title("Srednje kvadratna greska")
 
 close all;
-%% Funkcija
+%% Simulacija
+sim_file_name = "model";
+open_system(sim_file_name)
+out = sim(sim_file_name);
+%%
+fileID = fopen('input.txt','w');
+save_to_file_vhdl(out.input(1:2048), fileID)
+fclose('all');
+disp('gotovo')
+
+%% Funkcije
+
+function save_to_file_vhdl(array, fileID)
+    fprintf(fileID, 'constant ADC_test_vector3: test_arr := (\n');
+    for i = 1:length(array)
+        if i ~=length(array)
+            fprintf(fileID, '\tx"%s",\n', dec2hex(int16(array), 4));
+        else
+            fprintf(fileID, '\tx"%s"\n);', dec2hex(int16(array), 4));
+        end
+    end
+end
 
 function [out, t_trunc] = obrada_signala(x, t, Gz)
     [y, ~] = lsim(Gz, x, t);
