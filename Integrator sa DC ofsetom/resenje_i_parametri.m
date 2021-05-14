@@ -53,9 +53,8 @@ bode(W, Gz)
 t = time;
 x = real_input(1:length(time));
 
-signal_mean = movmean(x, 4096);
-
 figure;
+sgtitle("Vremenski domen")
 
 subplot(211)
 plot(t, x)
