@@ -9,12 +9,14 @@ set(groot, 'defaultLegendInterpreter','latex');
 Fs = 2000; % Hz
 sim_duration = 2; % s
 time = 1/Fs * (0:(Fs * sim_duration));
-t = time;
+N = 2^11;
 
-n = 1;
+t = time(1:N);
+
+n = 5;
 A = 6000;
 
-f = 57.723 * (1:n); % Hz
+f = 50 * (1:n); % Hz
 phases = pi/6 * (1:n);
 
 x = A/2 + 0.1 * A * randn;
@@ -40,8 +42,6 @@ xlabel("t [s]")
 ylabel("$x(t)$ [unit]")
 %% Jednostrani spektar
 
-N = 2^11;
-
 [absX1, phaseX1] = my_fft(x, N);
 
 naxis = 0:N/2;
@@ -61,10 +61,36 @@ plot(faxis1, phaseX1);
 title("$arg(X(j2\pi f))$")
 xlabel("f [Hz]")
 ylabel("$arg(X(j2\pi f))$ [rad]")
-%%
+%% FFT
 
-X = fft(x, N);
-y = ifft(X, length(x));
+X = fft(x);
+f_levo = 30;
+f_desno = 70;
+X(1:f_levo) = 0;
+X(end - f_levo:end) = 0;
+X(f_desno:end - f_desno) = 0;
+
+absX2 = abs(X);
+phaseX2 = angle(X);
+
+figure;
+
+subplot(211)
+plot(absX2)
+title("absX2")
+xlabel("N [odb]")
+
+
+subplot(212)
+plot(phaseX2)
+title("phaseX2")
+xlabel("N [odb]")
+
+
+%% IFFT
+
+y = ifft(X);
+
 
 figure;
 sgtitle("Vremenski domen")
