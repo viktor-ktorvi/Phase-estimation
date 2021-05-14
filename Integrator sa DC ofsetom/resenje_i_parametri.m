@@ -45,6 +45,9 @@ title("Modifikovani integrator")
 figure;
 margin(Gz)
 title("Diskretni modifikovani integrator")
+
+figure;
+bode(W, Gz)
 %% Signal
 
 t = time;
