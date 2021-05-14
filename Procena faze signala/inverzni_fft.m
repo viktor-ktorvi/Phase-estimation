@@ -16,8 +16,8 @@ t = time(1:N);
 n = 5;
 A = 6000;
 
-f = 50 * (1:n); % Hz
-phases = pi/6 * (1:n);
+f = 63.456 * (1:n); % Hz
+phases = pi/(6.2) * (1:n);
 
 x = A/2 + 0.1 * A * randn;
 for i = 1:n
@@ -89,8 +89,10 @@ xlabel("N [odb]")
 
 %% IFFT
 
-y = ifft(X);
-
+y = real(ifft(X));
+i = 1;
+phase_est = mle_phase_estimation(y, f(i), Fs);
+fprintf("Ucestanost = %2.2f Hz\nProcena faze = %2.4f rad\nPrava faza = %2.4f rad\n\n", f(i), phase_est, phases(i))
 
 figure;
 sgtitle("Vremenski domen")
