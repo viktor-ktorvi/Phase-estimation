@@ -21,7 +21,7 @@ phases = pi/6 * (1:n);
 % TODO mozda smanjiti Fs tako sto cu izimati svaki 2. ili svaki 4. odbirak,
 %      to bi trebalo da poboljsa rezoluciju
 
-x = 0 + 0.1 * A * randn(length(t), 1)';
+x = 0 %+ 0.1 * A * randn(length(t), 1)';
 for i = 1:n
     x = x + A/i * cos(2*pi* f(i) * t + phases(i));
 end
@@ -146,47 +146,4 @@ ylabel("$arg(X(j2\pi f))$ [rad]")
 xlim([0, xlimit])
 
 
-%% Jednostrani spektar - x.size = 2^14, N = 2^14
 
-% N = 2^14;
-% 
-% xsize = 2^14;
-% [absX1, phaseX1] = my_fft(x(1:xsize), N);
-% 
-% naxis = 0:N/2;
-% faxis1 = naxis/(N/2) * Fs / 2;
-% 
-% 
-% [max_amp, max_index] = max(absX1);
-% 
-% fprintf("Za duzinu signala %d i broj tacaka FFT-a %d\n\n", xsize, N)
-% 
-% fprintf("Procena ucestanosti f = %3.3f\n", faxis1(max_index))
-% fprintf("Procena faze ph = %3.3f\n", phaseX1(max_index))
-% 
-% fprintf("\nPrava ucestanost f = %3.3f\n", f(1))
-% fprintf("Prava faza ph = %3.3f\n", phases(1))
-% 
-% for cnt = 1:50
-%    fprintf("=") 
-% end
-% fprintf("\n")
-% 
-% 
-% figure;
-% sgtitle("Jednostrani spektar signala duzine " + xsize + " odbiraka" ...
-%     + newline + "u " + N + " tacaka FFT-a");
-% 
-% subplot(211)
-% plot(faxis1, absX1)
-% title("$|X(j2\pi f)|$")
-% xlabel("f [Hz]")
-% ylabel("$|X(j2\pi f)|$ [unit]")
-% xlim([0, xlimit])
-% 
-% subplot(212)
-% plot(faxis1, phaseX1);
-% title("$arg(X(j2\pi f))$")
-% xlabel("f [Hz]")
-% ylabel("$arg(X(j2\pi f))$ [rad]")
-% xlim([0, xlimit])
