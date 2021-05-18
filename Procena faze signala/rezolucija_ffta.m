@@ -17,9 +17,11 @@ A = 6000;
 f = 57.723 * (1:n); % Hz
 phases = pi/6 * (1:n);
 
-% TODO sum, vise harmonika, DC
+% TODO vise harmonika
+% TODO mozda smanjiti Fs tako sto cu izimati svaki 2. ili svaki 4. odbirak,
+%      to bi trebalo da poboljsa rezoluciju
 
-x = 0;
+x = 0 + 0.1 * A * randn(length(t), 1)';
 for i = 1:n
     x = x + A/i * cos(2*pi* f(i) * t + phases(i));
 end
@@ -55,13 +57,17 @@ faxis1 = naxis/(N/2) * Fs / 2;
 
 
 [max_amp, max_index] = max(absX1);
+mle_ph = mle_phase_estimation(x(1:xsize), faxis1(max_index), Fs);
+
 
 fprintf("Za duzinu signala %d i broj tacaka FFT-a %d\n\n", xsize, N)
 
 fprintf("Procena ucestanosti f = %3.3f\n", faxis1(max_index))
 fprintf("Procena faze ph = %3.3f\n", phaseX1(max_index))
+fprintf("ML procena faze ph = %3.3f\n", mle_ph)
 
-fprintf("\nPrava ucestanost f = %3.3f\n", f)
+
+fprintf("\nPrava ucestanost f = %3.3f\n", f(1))
 fprintf("Prava faza ph = %3.3f\n", phases(1))
 
 for cnt = 1:50
@@ -103,13 +109,16 @@ faxis1 = naxis/(N/2) * Fs / 2;
 
 
 [max_amp, max_index] = max(absX1);
+mle_ph = mle_phase_estimation(x(1:xsize), faxis1(max_index), Fs);
 
 fprintf("Za duzinu signala %d i broj tacaka FFT-a %d\n\n", xsize, N)
 
 fprintf("Procena ucestanosti f = %3.3f\n", faxis1(max_index))
 fprintf("Procena faze ph = %3.3f\n", phaseX1(max_index))
+fprintf("ML procena faze ph = %3.3f\n", mle_ph)
 
-fprintf("\nPrava ucestanost f = %3.3f\n", f)
+
+fprintf("\nPrava ucestanost f = %3.3f\n", f(1))
 fprintf("Prava faza ph = %3.3f\n", phases(1))
 
 for cnt = 1:50
@@ -155,7 +164,7 @@ xlim([0, xlimit])
 % fprintf("Procena ucestanosti f = %3.3f\n", faxis1(max_index))
 % fprintf("Procena faze ph = %3.3f\n", phaseX1(max_index))
 % 
-% fprintf("\nPrava ucestanost f = %3.3f\n", f)
+% fprintf("\nPrava ucestanost f = %3.3f\n", f(1))
 % fprintf("Prava faza ph = %3.3f\n", phases(1))
 % 
 % for cnt = 1:50
