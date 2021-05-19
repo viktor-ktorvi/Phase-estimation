@@ -16,7 +16,7 @@ set(groot, 'defaultLegendInterpreter','latex');
 %   rezoluciju
 %   - da se usrednjavaju procene u okolnim tackama
 
-xsize = 512;
+xsize = 2048;
 Fs = 2000;
 
 t = 1/Fs * (1:xsize);
