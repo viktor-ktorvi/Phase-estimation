@@ -19,7 +19,7 @@ set(groot, 'defaultLegendInterpreter','latex');
 xsize = 2048;
 Fs = 2000;
 
-t = 1/Fs * (1:xsize);
+t = 1/Fs * (0:xsize-1);
 
 A = 6000;
 

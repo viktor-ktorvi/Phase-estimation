@@ -12,7 +12,7 @@ A = 6000;
 DC = 10;
 epsilon = 10;
 w = 2*pi*f;
-N = 512;
+% N = 512;
 
 %% Realni podaci
 
