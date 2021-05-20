@@ -1,4 +1,4 @@
-clc;
+% clc;
 close all;
 clear variables;
 
@@ -20,7 +20,7 @@ N = 2^14;
 xsize = 2048;
 
 phases = (-0.9*pi:0.1:0.9*pi)';
-freqs = (15:0.1:100)';
+freqs = (15:0.05:100)';
 
 naxis = 0:N/2;
 faxis1 = naxis/(N/2) * Fs / 2;
