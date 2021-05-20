@@ -8,9 +8,9 @@ set(groot, 'defaultLegendInterpreter','latex');
 %% Parametri
 Fs = 2000; % Hz
 f = 50; % Hz
-A = 6000;
+A = 328;
 DC = 10;
-epsilon = 10;
+epsilon = 30;
 w = 2*pi*f;
 % N = 512;
 
@@ -79,5 +79,6 @@ out = sim(sim_file_name);
 fileID = fopen('input.txt','w');
 save_to_file_vhdl(out.input(1:2048), fileID)
 fclose('all');
+
 
 
