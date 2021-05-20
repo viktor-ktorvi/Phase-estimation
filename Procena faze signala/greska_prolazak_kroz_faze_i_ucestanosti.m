@@ -47,8 +47,6 @@ fprintf("\n\n")
 %%
 [X,Y] = meshgrid(freqs,phases);
 
-
-
 figure;
 surf(X,Y,phase_errors')
 colormap summer
@@ -57,5 +55,15 @@ title("Greska procene faze")
 xlabel("f [Hz]")
 ylabel("$\phi$ [rad]")
 zlabel("$|$greska$|$ [rad]")
+
+unit = "rad";
+errors = phase_errors;
+
+my_stats(Fs, xsize, N, unit, errors, "Procena faze [" + unit + "]")
+
+unit = "deg";
+errors = phase_errors * 180 / pi;
+
+my_stats(Fs, xsize, N, unit, errors, "Procena faze [" + unit + "]")
 
 
