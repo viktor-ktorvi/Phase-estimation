@@ -44,9 +44,9 @@ plot(t(ind1:ind2), x(ind1:ind2))
 title("Uvelicano")
 xlabel("t [s]")
 ylabel("$x(t)$ [unit]")
-%% Jednostrani spektar - x.size = 2048, N = 2048
+%% Jednostrani spektar - x.size = 2048, N = 16384
 
-N = 2^11;
+N = 2^14;
 
 xsize = 2048;
 [absX1, phaseX1] = my_fft(x(1:xsize), N);
@@ -69,6 +69,7 @@ fprintf("ML procena faze ph = %3.3f\n", mle_ph)
 
 fprintf("\nPrava ucestanost f = %3.3f\n", f(1))
 fprintf("Prava faza ph = %3.3f\n", phases(1))
+fprintf("Greska procene = %3.3f\n", abs(phaseX1(max_index) - phases(1)));
 
 for cnt = 1:50
    fprintf("=") 
@@ -97,9 +98,9 @@ xlim([0, xlimit])
 
 
 
-%% Jednostrani spektar - x.size = 2048, N = 2^14
+%% Jednostrani spektar - x.size = 2048, N = 2^
 
-N = 2^14;
+N = 2^17;
 
 xsize = 2048;
 [absX1, phaseX1] = my_fft(x(1:xsize), N);
@@ -120,6 +121,7 @@ fprintf("ML procena faze ph = %3.3f\n", mle_ph)
 
 fprintf("\nPrava ucestanost f = %3.3f\n", f(1))
 fprintf("Prava faza ph = %3.3f\n", phases(1))
+fprintf("Greska procene = %3.3f\n", abs(phaseX1(max_index) - phases(1)));
 
 for cnt = 1:50
    fprintf("=") 
