@@ -14,12 +14,10 @@ t = time;
 n = 1;
 A = 6000;
 
-f = 57.723 * (1:n); % Hz
-phases = pi/6 * (1:n);
+f = 100.123456 * (1:n); % Hz
+phases = 1.2345 * (1:n);
 
-% TODO vise harmonika
-% TODO mozda smanjiti Fs tako sto cu izimati svaki 2. ili svaki 4. odbirak,
-%      to bi trebalo da poboljsa rezoluciju
+
 
 x = 0 %+ 0.1 * A * randn(length(t), 1)';
 for i = 1:n
