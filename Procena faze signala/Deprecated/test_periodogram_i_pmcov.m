@@ -51,12 +51,11 @@ ylabel("$x(t)$ [unit]")
 xlimit = 200;
 [absX1, phaseX1] = my_fft(x, N);
 
-[pxx,wpxx] = periodogram(x,[],N);
-fpxx = wpxx / pi * Fs/2;
+pxx = pmcov(x,4,N);
 
 pxx = pxx / max(pxx) * max(absX1);
 [pmax_val, pmax_index] = max(pxx);
-fpxx(pmax_index)
+% fpxx(pmax_index)
 
 
 naxis = 0:N/2;
@@ -66,7 +65,7 @@ figure;
 sgtitle("Jednostrani spektar");
 
 subplot(211)
-plot(faxis1, absX1, fpxx, pxx)
+plot(faxis1, absX1, faxis1, pxx)
 title("$|X(j2\pi f)|$")
 xlabel("f [Hz]")
 ylabel("$|X(j2\pi f)|$ [unit]")
