@@ -51,7 +51,13 @@ ylabel("$x(t)$ [unit]")
 xlimit = 200;
 [absX1, phaseX1] = my_fft(x, N);
 
-[absX1_small, phaseX1_small] = my_fft(x(1:xsmall), N);
+[pxx,wpxx] = periodogram(x,[],N);
+fpxx = wpxx / pi * Fs/2;
+
+pxx = pxx / max(pxx) * max(absX1);
+[pmax_val, pmax_index] = max(pxx);
+fpxx(pmax_index)
+
 
 naxis = 0:N/2;
 faxis1 = naxis/(N/2) * Fs / 2;
@@ -60,51 +66,16 @@ figure;
 sgtitle("Jednostrani spektar");
 
 subplot(211)
-plot(faxis1, absX1, faxis1, absX1_small)
+plot(faxis1, absX1, fpxx, pxx)
 title("$|X(j2\pi f)|$")
 xlabel("f [Hz]")
 ylabel("$|X(j2\pi f)|$ [unit]")
 xlim([0, xlimit])
-legend("xsize = " + xsize, "xsize = " + xsmall)
+legend("fft", "periodogram")
 
 subplot(212)
-plot(faxis1, phaseX1, faxis1, phaseX1_small);
+plot(faxis1, phaseX1);
 title("$arg(X(j2\pi f))$")
 xlabel("f [Hz]")
 ylabel("$arg(X(j2\pi f))$ [rad]")
 xlim([0, xlimit])
-legend("xsize = " + xsize, "xsize = " + xsmall)
-
-%% MLE
-
-
-for i = 1:n
-    freq = f(i)
-    % freq = round(f(i), 1)
-    phase_est = mle_phase_estimation(x, freq, Fs);
-
-    fprintf("Ucestanost = %2.4f Hz\nProcena faze = %2.4f rad\nPrava faza = %2.4f rad\n\n", f(i), phase_est, phases(i))
-end
-
-function phi_hat = mle_phase_estimation(x, f0, Fs)
-    n = 0:(length(x) - 1);
-
-    f0_dig = f0 / Fs;
-
-    sinus = sin(2 * pi * f0_dig * n);
-    cosinus = cos(2 * pi * f0_dig * n);
-
-    phi_hat = -atan(sum(x .* sinus) / sum(x .* cosinus));
-end
-
-
-
-
-
-
-
-
-
-
-
-
