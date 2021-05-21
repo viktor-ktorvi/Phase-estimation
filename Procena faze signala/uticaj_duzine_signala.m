@@ -4,10 +4,14 @@ clear variables;
 
 set(groot,'defaulttextinterpreter','latex');  
 %% Vremenski domen
+% Zakljucak: faza linearno zavisi duzini prozora i ucestanosti pa je nagib faze veci za
+% veci prozor, a manji za manji prozor - stoga je greska u proceni
+% ucestanosti manja po fazu signala jer je nagib fazne karakteristike manji
+% (https://ccrma.stanford.edu/~jos/sasp/Rectangular_Window.html)
 Fs = 2000; % Hz
 
 xsize = 2048;
-xsmall = 1024;
+xsmall = 512;
 
 time = 1/Fs * (0:(xsize - 1));
 t = time;

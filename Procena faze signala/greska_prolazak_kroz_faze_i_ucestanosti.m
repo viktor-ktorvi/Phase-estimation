@@ -15,7 +15,7 @@ n = 1;
 A = 6000;
 
 
-N = 2^15;
+N = 2^14;
 
 xsize = 1024;
 
@@ -55,6 +55,15 @@ title("Greska procene faze")
 xlabel("f [Hz]")
 ylabel("$\phi$ [rad]")
 zlabel("$|$greska$|$ [rad]")
+
+figure;
+surf(X,Y,180 /pi * phase_errors')
+colormap summer
+shading interp
+title("Greska procene faze")
+xlabel("f [Hz]")
+ylabel("$\phi$ [deg]")
+zlabel("$|$greska$|$ [deg]")
 
 unit = "rad";
 errors = phase_errors;
