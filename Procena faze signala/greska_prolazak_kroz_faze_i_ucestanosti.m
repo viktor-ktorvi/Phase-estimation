@@ -1,4 +1,4 @@
-% clc;
+clc;
 close all;
 clear variables;
 
@@ -15,12 +15,12 @@ n = 1;
 A = 6000;
 
 
-N = 2^14;
+N = 2^15;
 
-xsize = 2048;
+xsize = 1024;
 
 phases = (-0.9*pi:0.1:0.9*pi)';
-freqs = (15:0.05:100)';
+freqs = (15:0.1:100)';
 
 naxis = 0:N/2;
 faxis1 = naxis/(N/2) * Fs / 2;
@@ -30,7 +30,7 @@ phase_errors = zeros(length(freqs), length(phases));
 tic
 for i = 1:length(freqs)
     for j = 1:length(phases)
-        x = A * cos(2*pi*freqs(i)*t + phases(j));
+        x = A * cos(2*pi*freqs(i)*t + phases(j)) + 0.1 * A * rand(1, length(t));;
         
         [absX1, phaseX1] = my_fft(x(1:xsize), N);
 

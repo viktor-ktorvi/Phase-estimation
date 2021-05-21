@@ -19,7 +19,7 @@ phases = 1.2345 * (1:n);
 
 
 
-x = 0 %+ 0.1 * A * randn(length(t), 1)';
+x = 0; %+ 0.1 * A * randn(length(t), 1)';
 for i = 1:n
     x = x + A/i * cos(2*pi* f(i) * t + phases(i));
 end

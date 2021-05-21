@@ -1,4 +1,4 @@
-clc;
+% clc;
 close all;
 clear variables;
 
@@ -15,7 +15,7 @@ n = 1;
 A = 6000;
 
 
-N = 2^14;
+N = 2^15;
 
 xsize = 2048;
 
@@ -68,6 +68,11 @@ unit = "rad";
 errors = phase_errors;
 
 my_stats(Fs, xsize, N, unit, errors, "Procena faze")
+
+unit = "deg";
+errors = phase_errors * 180 / pi;
+my_stats(Fs, xsize, N, unit, errors, "Procena faze")
+
 
 
 
