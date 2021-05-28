@@ -8,7 +8,13 @@ set(groot, 'defaultLegendInterpreter','latex');
 %%
 L = 2048;
 Fs = 2000;
-w = flattopwin(L)';
+w = hamming(L)';
+
+figure;
+plot(w);
+title("Prozor")
+xlabel("n [odb]");
+ylabel("w[n] [unit]");
 
 N = 2^15;
 [absX1, phaseX1] = my_fft(w, N);
