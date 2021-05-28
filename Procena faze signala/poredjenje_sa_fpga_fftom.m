@@ -7,9 +7,9 @@ set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
 %% Ucitavanje
 
-input_signal = dlmread('samples_in_19Hz.txt')';
-fft_re_out = dlmread('fft_re_out_19Hz.txt');
-fft_im_out = dlmread('fft_im_out_19Hz.txt');
+input_signal = dlmread('samples_in_4Hz.txt')';
+fft_re_out = dlmread('fft_re_out_3Hz.txt');
+fft_im_out = dlmread('fft_im_out_3Hz.txt');
 
 %% Vremenski domen
 Fs = 2000;
