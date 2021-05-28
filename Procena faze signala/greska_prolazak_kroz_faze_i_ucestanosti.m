@@ -19,7 +19,7 @@ N = 2^14;
 
 xsize = 1024;
 
-phases = (-0.9*pi:0.1:0.9*pi)';
+phases = (-0.7*pi:0.1:0.7*pi)';
 freqs = (15:0.1:100)';
 
 naxis = 0:N/2;
@@ -30,9 +30,11 @@ phase_errors = zeros(length(freqs), length(phases));
 tic
 for i = 1:length(freqs)
     for j = 1:length(phases)
-        x = A * cos(2*pi*freqs(i)*t + phases(j)) + 0.1 * A * rand(1, length(t));;
+        x = A * cos(2*pi*freqs(i)*t + phases(j)) + 0.1 * A * rand(1, length(t));
         
-        [absX1, phaseX1] = my_fft(x(1:xsize), N);
+        x = x(1:xsize);
+        x = x .* flattopwin(xsize)';
+        [absX1, phaseX1] = my_fft(x, N);
 
         [max_amp, max_index] = max(absX1);
 

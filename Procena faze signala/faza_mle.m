@@ -22,6 +22,7 @@ phases = pi/6 * (1:n);
 x = 0;
 for i = 1:n
     x = x + A/i * cos(2*pi* f(i) * t + phases(i));
+    x = x .* flattopwin(xsize)';
 end
 
 figure;
