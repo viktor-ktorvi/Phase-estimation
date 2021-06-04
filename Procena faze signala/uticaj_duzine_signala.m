@@ -13,14 +13,14 @@ set(groot, 'defaultLegendInterpreter','latex');
 Fs = 2000; % Hz
 
 xsize = 2048;
-xsmall = 512;
+xsmall = 1024;
 
 time = 1/Fs * (0:(xsize - 1));
 t = time;
 N = 2^15;
 
 n = 2;
-A = 6000;
+A = 1120;
 
 f = 57.723 * (1:n); % Hz
 phases = pi/6 * (1:n);

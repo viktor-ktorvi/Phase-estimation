@@ -12,12 +12,12 @@ time = 1/Fs * (0:(Fs * sim_duration));
 t = time;
 
 n = 1;
-A = 20;
-
+A = 1120;
+DC = 0;
 
 N = 2^15;
 
-xsize = 2048;
+xsize = 1024;
 
 phases = (-0.5*pi:0.1:0.5*pi)';
 freqs = (15:0.1:100)';
@@ -32,16 +32,22 @@ amp_errors = zeros(length(freqs), length(phases));
 tic
 for i = 1:length(freqs)
     for j = 1:length(phases)
-        x = A * cos(2*pi*freqs(i)*t + phases(j)) + 0.1 * A * rand(1, length(t));
+        x = DC + A * cos(2*pi*freqs(i)*t + phases(j)); %+ 0.1 * A * rand(1, length(t));
         
         x = x(1:xsize);
 %         x = x .* flattopwin(xsize)';
         [absX1, phaseX1] = my_fft(x, N);
+% 
+%         [max_amp, max_index] = max(absX1);
+% 
+%         f_hat = faxis1(max_index);
+%         phase_hat = phaseX1(max_index);
 
-        [max_amp, max_index] = max(absX1);
-
-        f_hat = faxis1(max_index);
-        phase_hat = phaseX1(max_index);
+        [max_amp, max_index] = max(absX1(faxis1 > 5));
+        faxis_5plus = faxis1(faxis1 > 5);
+        f_hat = faxis_5plus(max_index);
+        phaseX_faxis5plus = phaseX1(faxis1 > 5);
+        phase_hat = phaseX_faxis5plus(max_index);
         
         phase_errors(i, j) = abs(phase_hat - phases(j));
         amp_errors(i, j) = abs(max_amp - A);
