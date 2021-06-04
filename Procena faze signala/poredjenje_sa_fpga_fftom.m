@@ -7,8 +7,8 @@ set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
 %% Ucitavanje
 
-input_signal = dlmread('input100.txt')';
-% input_signal = input_signal - mean(input_signal);
+input_signal = dlmread('input230.txt')';
+input_signal = input_signal - mean(input_signal);
 % fft_re_out = dlmread('fft_re_out_3Hz.txt');
 % fft_im_out = dlmread('fft_im_out_3Hz.txt');
 

@@ -15,6 +15,15 @@ rho = rand(1, N) * R + eps;
 x = rho .* cos(theta);
 y = rho .* sin(theta);
 
+x(2) = 0;
+x(3) = 0;
+x(61) = 0;
+x(62) = 0;
+
+y(1) = 0;
+y(2) = 0;
+y(62) = 0;
+y(63) = 0;
 figure;
 axis equal
 plot(x, y, 'x')
@@ -30,6 +39,8 @@ fclose('all');
 fileID = fopen('Signali/y.txt','w');
 save_to_file_vhdl_float(y, fileID)
 fclose('all');
+
+dlmwrite('Random/atan2.txt',atan2(y, x), 'delimiter', '\n')
 
 function save_to_file_vhdl_float(array, fileID)
     fprintf(fileID, 'constant ADC_test_vector3: test_arr := (\n');
